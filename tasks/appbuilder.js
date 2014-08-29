@@ -14,6 +14,7 @@ module.exports = function(grunt) {
             options;
 
         options = this.options({
+            platform: 'android',
             liveSync: true,
             download: true,
             companion: false,

@@ -37,6 +37,12 @@ grunt.initConfig({
 
 ### Options
 
+#### options.platform
+Type: `String`
+Default value: `'android'`
+
+The target build platform can be either, android, ios, wp8.
+
 #### options.liveSync
 Type: `Boolean`
 Default value: `true`
@@ -79,7 +85,6 @@ grunt.initConfig({
         "HelloWorld.apk": ["test/HelloWorld"]
       },
       options: {
-        platform: "android",
         liveSync: false
       }
     },
@@ -90,4 +95,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-0.1.0 Initial Implementation
+- 0.1.1 Set android as the default platform
+- 0.1.0 Initial Implementation
