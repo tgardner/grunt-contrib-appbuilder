@@ -1,6 +1,6 @@
 /*
  * grunt-appbuilder-contrib
- * https://github.com/Trent/grunt-appbuilder-contrib
+ * https://github.com/tgardner/grunt-appbuilder-contrib
  *
  * Copyright (c) 2014 Trent Gardner
  * Licensed under the MIT license.
@@ -29,23 +29,16 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    appbuilder_contrib: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
+    appbuilder: {
+        release: {
+          src: "../../Projects/AMMPED.Mobile/source",
+          dest: ".",
+          options: {
+            platform: "android",
+            liveSync: false,
+            debug: true
+          }
         }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      }
     },
 
     // Unit tests.
@@ -65,7 +58,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'appbuilder_contrib', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'appbuilder', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
