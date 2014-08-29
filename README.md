@@ -1,6 +1,6 @@
 # grunt-contrib-appbuilder
 
-> Grunt task to execute the Telerik AppBuilder CLI
+> Grunt task to build a mobile application using the [Telerik AppBuilder CLI](http://www.telerik.com/appbuilder/command-line-interface)
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
