@@ -76,8 +76,6 @@ Sets the provisioning profile that you want to use for code signing your iOS app
 
 ### Usage Examples
 
-#### Default Options
-
 ```js
 grunt.initConfig({
     appbuilder: {
@@ -95,5 +93,6 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+- 0.1.2 Escaped string inputs
 - 0.1.1 Set android as the default platform
 - 0.1.0 Initial Implementation

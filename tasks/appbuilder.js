@@ -62,7 +62,7 @@ module.exports = function(grunt) {
 
         if(project) {
             args.push("--path");
-            args.push(project);
+            args.push(JSON.stringify(project));
         }
 
         if(!options.liveSync) {
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
 
             if(dest) {
                 args.push("--save-to");
-                args.push(dest);
+                args.push(JSON.stringify(dest));
             }
         } else if(options.companion) {
             args.push("--companion");
@@ -82,12 +82,12 @@ module.exports = function(grunt) {
 
         if(options.certificate) {
             args.push("--certificate");
-            args.push(options.certificate);
+            args.push(JSON.stringify(options.certificate));
         }
 
         if(options.provision) {
             args.push("--provision");
-            args.push(options.provision);
+            args.push(JSON.stringify(options.provision));
         }
 
         var command = args.join(' ');
