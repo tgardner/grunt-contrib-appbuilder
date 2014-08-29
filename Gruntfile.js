@@ -1,6 +1,6 @@
 /*
- * grunt-appbuilder-contrib
- * https://github.com/tgardner/grunt-appbuilder-contrib
+ * grunt-contrib-appbuilder
+ * https://github.com/tgardner/grunt-contrib-appbuilder
  *
  * Copyright (c) 2014 Trent Gardner
  * Licensed under the MIT license.
@@ -25,18 +25,18 @@ module.exports = function(grunt) {
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp']
+      tests: ['HelloWorld.apk']
     },
 
     // Configuration to be run (and then tested).
     appbuilder: {
         release: {
-          src: "../../Projects/AMMPED.Mobile/source",
-          dest: ".",
+          files: {
+            "HelloWorld.apk": ["test/HelloWorld"]
+          },
           options: {
             platform: "android",
-            liveSync: false,
-            debug: true
+            liveSync: false
           }
         }
     },

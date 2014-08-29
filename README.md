@@ -1,4 +1,4 @@
-# grunt-appbuilder-contrib
+# grunt-contrib-appbuilder
 
 > Grunt task to execute the Telerik AppBuilder CLI
 
@@ -8,23 +8,23 @@ This plugin requires Grunt `~0.4.5`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-appbuilder-contrib --save-dev
+npm install grunt-contrib-appbuilder --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-appbuilder-contrib');
+grunt.loadNpmTasks('grunt-contrib-appbuilder');
 ```
 
-## The "appbuilder_contrib" task
+## The "appbuilder" task
 
 ### Overview
-In your project's Gruntfile, add a section named `appbuilder_contrib` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `appbuilder` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  appbuilder_contrib: {
+  appbuilder: {
     options: {
       // Task-specific options go here.
     },
@@ -37,17 +37,36 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.liveSync
+Type: `Boolean`
+Default value: `true`
+
+Enables LiveSync with the three-finger tap and hold gesture.
+
+#### options.download
+Type: `Boolean`
+Default value: `true`
+
+Downloads the application package to the root of the project
+
+#### options.companion
+Type: `Boolean`
+Default value: `false`
+
+Produces a QR code for deployment in the Telerik AppBuilder companion app.
+You cannot set both the companion and download switches.
+
+#### options.certificate
 Type: `String`
-Default value: `',  '`
+Default value: `''`
 
-A string value that is used to do something with whatever.
+Sets the certificate that you want to use for code signing your iOS or Android app.
 
-#### options.punctuation
+#### options.provision
 Type: `String`
-Default value: `'.'`
+Default value: `''`
 
-A string value that is used to do something else with whatever else.
+Sets the provisioning profile that you want to use for code signing your iOS app.
 
 ### Usage Examples
 
@@ -56,29 +75,15 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  appbuilder_contrib: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+    appbuilder: {
+      files: {
+        "HelloWorld.apk": ["test/HelloWorld"]
+      },
+      options: {
+        platform: "android",
+        liveSync: false
+      }
     },
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  appbuilder_contrib: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
 });
 ```
 
@@ -86,4 +91,4 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+-0.1.0 Initial Implementation

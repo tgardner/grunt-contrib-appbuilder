@@ -1,6 +1,6 @@
 /*
- * grunt-appbuilder-contrib
- * https://github.com/tgardner/grunt-appbuilder-contrib
+ * grunt-contrib-appbuilder
+ * https://github.com/tgardner/grunt-contrib-appbuilder
  *
  * Copyright (c) 2014 Trent Gardner
  * Licensed under the MIT license.
@@ -9,8 +9,6 @@
 'use strict';
 
 module.exports = function(grunt) {
-    var _ = require('lodash')
-
     grunt.registerMultiTask('appbuilder', 'Grunt task to execute the Telerik AppBuilder CLI', function() {
         var done = this.async(),
             options;
@@ -19,10 +17,8 @@ module.exports = function(grunt) {
             liveSync: true,
             download: true,
             companion: false,
-            certificate: false,
-            provision: false,
-            maxBuffer: 300 * 1024,
-            debug: false
+            certificate: '',
+            provision: ''
         });
 
         this.files.forEach(function(file) {
@@ -49,9 +45,7 @@ module.exports = function(grunt) {
     function build(project, dest, options, done) {
         var args = [],
             exec = require('child_process').exec,
-            spawn = require('child_process').spawn,
             env = process.env,
-            fs = require("fs"),
             ab;
 
         args.push("appbuilder");
@@ -66,19 +60,8 @@ module.exports = function(grunt) {
         }
 
         if(project) {
-            var path = fs.lstatSync(project.toString());
-            if(!path || !path.isDirectory()) {
-                grunt.log.errorlns('Project path must be a directory');
-                return done(false);
-            }
-
             args.push("--path");
             args.push(project);
-        }
-
-        if(dest && grunt.file.exists(dest)) {
-            args.push("--save-to");
-            args.push(dest);
         }
 
         if(!options.liveSync) {
@@ -87,6 +70,11 @@ module.exports = function(grunt) {
 
         if(options.download) {
             args.push("--download");
+
+            if(dest) {
+                args.push("--save-to");
+                args.push(dest);
+            }
         } else if(options.companion) {
             args.push("--companion");
         }
@@ -102,46 +90,26 @@ module.exports = function(grunt) {
         }
 
         var command = args.join(' ');
-        if(options.debug) {
-            grunt.log.writeln(command);
-        }
-
-        // ab = spawn(command)
-        // ab.stdout.on('data', function (data) {
-        //     console.log('stdout: ' + data);
-        // });
-
-        // ab.stderr.on('data', function (data) {
-        //     grunt.log.errorlns(data);
-        // });
-
-        // ab.on('exit', function (code) {
-        //     done(code === 0);
-        // });
+        grunt.log.debug(command);
 
         ab = exec(command, {
-            maxBuffer: options.maxBuffer,
             cwd: process.cwd(),
             timeout: 0,
             killSignal: 'SIGTERM',
             env: env
-        }, function (err, results, code) {
-            var message;
-
-            if(err && err.code !== 1 && err.code !== 2 && err.code !== 65) {
-                grunt.log.errorlns('appbuilder failed with error code: ' + err.code);
-                grunt.log.errorlns('and the following message:' + err);
-
-                return done(false);
-            }
-
-            results = results.trim();
-
-            done(results);
         });
 
-        ab.stdout.pipe(process.stdout);
-        ab.stderr.pipe(process.stderr);
+        ab.stdout.on('data', function (data) {
+            grunt.log.write(data);
+        });
+
+        ab.stderr.on('data', function (data) {
+            grunt.log.errorlns(data);
+        });
+
+        ab.on('exit', function (code) {
+            done(code === 0);
+        });
     }
 
 };
