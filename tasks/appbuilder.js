@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
         options = this.options({
             platform: 'android',
-            liveSync: true,
+            debug: true,
             download: true,
             companion: false,
             certificate: '',
@@ -65,8 +65,10 @@ module.exports = function(grunt) {
             args.push(JSON.stringify(project));
         }
 
-        if(!options.liveSync) {
-            args.push("--no-livesync");
+        if(options.debug) {
+            args.push("--debug");
+        } else {
+            args.push("--release");
         }
 
         if(options.download) {

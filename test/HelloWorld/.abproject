@@ -73,5 +73,6 @@
 	],
 	"ProjectGuid": "{88f07a3c-e911-4033-b33d-5957ed36c30d}",
 	"WP8PublisherID": "{5e9a20dc-9a6e-4951-b773-084f56faef48}",
-	"WP8ProductID": "{0613d0fb-0d00-4726-87f3-061cd7e44eab}"
+	"WP8ProductID": "{0613d0fb-0d00-4726-87f3-061cd7e44eab}",
+	"CordovaPluginVariables": {}
 }
