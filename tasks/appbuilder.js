@@ -8,6 +8,9 @@
 
 'use strict';
 
+var path = require('path');
+var fs = require('fs');
+
 module.exports = function(grunt) {
     grunt.registerMultiTask('appbuilder', 'Grunt task to execute the Telerik AppBuilder CLI', function() {
         var done = this.async(),
@@ -19,8 +22,15 @@ module.exports = function(grunt) {
             download: true,
             companion: false,
             certificate: '',
-            provision: ''
+            provision: '',
+            destination: '',
         });
+
+        var dest = path.resolve(options.destination);
+        var dir = path.dirname(dest);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+        }
 
         this.files.forEach(function(file) {
             var src = file.src.filter(function(filepath) {
@@ -33,7 +43,7 @@ module.exports = function(grunt) {
                 }
             }).join(' ');
 
-            build(src, file.dest, options, function (results) {
+            build(src, options.destination.length > 0 ? dest : file.dest, options, function (results) {
                 if(results === false) {
                     done(false);
                 } else {
