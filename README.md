@@ -74,6 +74,13 @@ Default value: `''`
 
 Sets the provisioning profile that you want to use for code signing your iOS app.
 
+#### options.destination
+Type: `String`
+Default value: `''`
+
+Sets the destination for the file if the download switch is set.
+This can be either an absolute path or a path relative to the project's Gruntfile.
+
 ### Usage Examples
 
 ```js
